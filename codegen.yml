@@ -1,0 +1,16 @@
+overwrite: true
+schema: 'https://beta.pokeapi.co/graphql/v1beta'
+documents: 'src/generated/documents.ts'
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+      - 'urql-introspection'
+  ./schema.graphql:
+    plugins:
+      - 'schema-ast'
+  ./graphql.schema.json:
+    plugins:
+      - 'introspection'

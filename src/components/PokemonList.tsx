@@ -9,8 +9,8 @@ type Props = {
 };
 
 export const PokemoList: FC<Props> = ({ page }) => {
-  usePokemonList(page);
-  const pokemonList = useRecoilValue(pokemonListAtom(page));
+  const pokemonList = usePokemonList(page);
+  // const pokemonList = useRecoilValue(pokemonListAtom(page));
   console.log({ pokemonList });
   return (
     <Stack display={'flex'} flexDirection={'column'} pt={4}>

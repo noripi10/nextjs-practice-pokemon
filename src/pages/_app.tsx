@@ -2,6 +2,12 @@ import type { AppProps } from 'next/app';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { RecoilRoot } from 'recoil';
 import dynamic from 'next/dynamic';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'https://beta.pokeapi.co/graphql/v1beta',
+  cache: new InMemoryCache(),
+});
 
 const theme = extendTheme({
   styles: {
@@ -17,13 +23,15 @@ const theme = extendTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   const NoSSR = dynamic(() => import('../components/NoSsr'));
   return (
-    <RecoilRoot>
-      <ChakraProvider theme={theme}>
-        <NoSSR>
-          <Component {...pageProps} />
-        </NoSSR>
-      </ChakraProvider>
-    </RecoilRoot>
+    <ApolloProvider client={client}>
+      <RecoilRoot>
+        <ChakraProvider theme={theme}>
+          <NoSSR>
+            <Component {...pageProps} />
+          </NoSSR>
+        </ChakraProvider>
+      </RecoilRoot>
+    </ApolloProvider>
   );
 }
 
