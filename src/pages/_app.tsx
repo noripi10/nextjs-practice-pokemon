@@ -2,12 +2,8 @@ import type { AppProps } from 'next/app';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { RecoilRoot } from 'recoil';
 import dynamic from 'next/dynamic';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-
-const client = new ApolloClient({
-  uri: 'https://beta.pokeapi.co/graphql/v1beta',
-  cache: new InMemoryCache(),
-});
+import { ApolloProvider } from '@apollo/client';
+import { client } from '../libs/api';
 
 const theme = extendTheme({
   styles: {

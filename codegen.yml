@@ -1,5 +1,6 @@
 overwrite: true
-schema: 'https://beta.pokeapi.co/graphql/v1beta'
+# schema: 'https://beta.pokeapi.co/graphql/v1beta'
+schema: 'https://graphql-pokemon2.vercel.app/'
 documents: 'src/generated/documents.ts'
 generates:
   src/generated/graphql.tsx:
@@ -8,7 +9,7 @@ generates:
       - 'typescript-operations'
       - 'typescript-react-apollo'
       - 'urql-introspection'
-  ./schema.graphql:
+  src/generated/schema.graphql:
     plugins:
       - 'schema-ast'
   ./graphql.schema.json:

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { PokemonListItem } from '../../types/pokemon';
 import pokemonNames from '../../pokemonNames.json';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const basePokemonUri = 'https://pokeapi.co/api/v2/pokemon-species/';
 const basePokemonListUri = 'https://pokeapi.co/api/v2/pokemon-species/?limit=50&offset=';
@@ -28,3 +29,8 @@ export const fetchPokemonList = async (page: number) => {
 
   return pokemonListWithJp;
 };
+
+export const client = new ApolloClient({
+  uri: 'https://graphql-pokemon2.vercel.app/',
+  cache: new InMemoryCache(),
+});

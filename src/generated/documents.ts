@@ -1,11 +1,38 @@
 import { gql } from '@apollo/client';
 
 gql`
-  query PokeQuery {
-    pokemon_v2_pokemon(order_by: { id: asc }) {
+  query PokemonsQuery($first: Int!) {
+    pokemons(first: $first) {
       id
       name
-      height
+      weight {
+        minimum
+        maximum
+      }
+      height {
+        minimum
+        maximum
+      }
+      classification
+      types
+      resistant
+      attacks {
+        fast {
+          name
+        }
+        special {
+          name
+        }
+      }
+      fleeRate
+      maxCP
+      evolutions {
+        id
+        name
+        image
+      }
+      maxHP
+      image
     }
   }
 `;
