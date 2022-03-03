@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-practice-recoil-app",
+  "name": "nextjs-practice-pokemon-app",
   "private": true,
   "scripts": {
     "dev": "next dev",
