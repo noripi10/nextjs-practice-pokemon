@@ -7,7 +7,7 @@ export const Nav: FC = () => {
       <Flex px={2} minH={'60px'} bgColor={'blackAlpha.800'} align={'center'}>
         <Box pr={4}>
           <Text fontWeight={'bold'} fontSize={'lg'}>
-            Recoil + GraphQL Practice App
+            Recoil + Practice App
           </Text>
         </Box>
 

@@ -72,7 +72,7 @@ const GraphqlPokemon: NextPage<Props> = (props) => {
         mb={8}
         boxShadow='dark-lg'
       >
-        <Heading>GraphQL Pokemon</Heading>
+        <Heading fontSize={'2xl'}>GraphQL with PokemonApi</Heading>
       </Box>
       <Box>
         <Suspense
@@ -99,7 +99,9 @@ const GraphqlPokemon: NextPage<Props> = (props) => {
                   m={2}
                 >
                   <VStack flex={1} justifyContent='flex-start' alignItems={'flex-start'}>
-                    <Text fontWeight={'bold'}>{e?.jpName}</Text>
+                    <Text fontWeight={'bold'}>
+                      {e.number}.{e?.jpName}
+                    </Text>
                     <HStack>
                       <VStack>
                         <Image src={e!.image!} alt='pokemon-image' width={200} height={200} />

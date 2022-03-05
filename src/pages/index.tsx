@@ -12,8 +12,12 @@ const Home: NextPage<{ page: string }> = (props) => {
 
   const router = useRouter();
 
-  const onPrevios = () => router.push(`/?page=${pageNum - 1}`);
-  const onNext = () => router.push(`/?page=${pageNum + 1}`);
+  const onPrevios = () => {
+    router.push(`/?page=${pageNum - 1}`);
+  };
+  const onNext = () => {
+    router.push(`/?page=${pageNum + 1}`);
+  };
 
   return (
     <Box minH='100vh'>
@@ -21,12 +25,12 @@ const Home: NextPage<{ page: string }> = (props) => {
         お知らせ表示見ないな感じの場所
       </Box>
       <Nav />
-      <Box p={2} px={4}>
+      <Box p={2}>
         <Text fontSize={'lg'}>Pokemon List</Text>
-        <Suspense fallback={'loading...'}>
-          <PokemoList page={pageNum} />
-        </Suspense>
       </Box>
+      <Suspense fallback={'loading...'}>
+        <PokemoList page={pageNum} />
+      </Suspense>
       <HStack p={2} position={'fixed'} bottom={0} bgColor={'darkviolet'} width={'100%'}>
         <Button onClick={onPrevios} bgColor={'blackAlpha.800'} isDisabled={pageNum === 1}>
           Previos
@@ -42,8 +46,6 @@ const Home: NextPage<{ page: string }> = (props) => {
 export const getServerSideProps: GetServerSideProps = async (cnt: GetServerSidePropsContext) => {
   const { query } = cnt;
   const page = (query.page || '1') as string;
-
-  // console.info({ page });
 
   return {
     props: {

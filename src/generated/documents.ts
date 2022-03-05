@@ -4,6 +4,7 @@ gql`
   query PokemonsQuery($first: Int!) {
     pokemons(first: $first) {
       id
+      number
       name
       weight {
         minimum
@@ -28,6 +29,7 @@ gql`
       maxCP
       evolutions {
         id
+        number
         name
         image
       }
