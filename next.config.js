@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['img.pokemondb.net'],
   },
+  experimental: {
+    concurrentFeatures: true,
+  },
 };
 
 module.exports = nextConfig;

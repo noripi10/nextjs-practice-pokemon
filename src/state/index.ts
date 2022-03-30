@@ -1,19 +1,25 @@
 import { atomFamily, selectorFamily } from 'recoil';
-import { fetchPokemon, fetchPokemonList } from '../libs/api';
-import { PokemonListItem } from '../types/pokemon';
+import { fetchPokemonFeature, fetchPokemonList } from '../libs/api';
+import { PokemonFeature, PokemonListItem } from '../types/pokemon';
 
-// export const pokemonAtom = atomFamily({
-//   key: 'pokemon',
-//   default: null,
-// });
+export const pokemonAtom = atomFamily<PokemonFeature | null, string>({
+  key: 'pokemon',
+  default: null,
+});
 
-// export const pokemonSelector = selectorFamily({
-//   key: 'pokemonSelector',
-//   get:
-//     (name: string) =>
-//     async ({ get }) =>
-//       get(pokemonAtom(name)) || (await fetchPokemon(name)),
-// });
+export const pokemonSelector = selectorFamily<PokemonFeature, string>({
+  key: 'pokemonSelector',
+  get:
+    (name: string) =>
+    async ({ get }) =>
+      get(pokemonAtom(name)) || (await fetchPokemonFeature(name)),
+  set:
+    (name: string) =>
+    ({ set }, newValue) => {
+      set(pokemonAtom(name), newValue);
+    },
+  dangerouslyAllowMutability: true,
+});
 
 export const pokemonListAtom = atomFamily<PokemonListItem[] | null, number>({
   key: 'pokemonList',

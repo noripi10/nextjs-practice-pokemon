@@ -1,9 +1,21 @@
-import { Box, Button, Collapse, Flex, HStack, Spacer, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react';
-import { FC } from 'react';
-import { useRecoilValue } from 'recoil';
+import {
+  Box,
+  Button,
+  Collapse,
+  Flex,
+  HStack,
+  Spacer,
+  Spinner,
+  Stack,
+  Text,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react';
+import Link from 'next/link';
+import { FC, Suspense } from 'react';
 import { usePokemonList } from '../hooks/usePokemonList';
-import { pokemonListAtom } from '../state';
 import { PokemonListItem } from '../types/pokemon';
+import { PokemonFeature } from './PokemonFeature';
 
 type Props = {
   page: number;
@@ -11,8 +23,6 @@ type Props = {
 
 export const PokemoList: FC<Props> = ({ page }) => {
   const pokemonList = usePokemonList(page);
-  // const pokemonList = useRecoilValue(pokemonListAtom(page));
-  console.log({ pokemonList });
   return (
     <Stack flex={1} pt={4} mx={4}>
       {pokemonList?.map((pokemon) => (
@@ -42,7 +52,7 @@ export const PokemonItem: FC<PropItem> = ({ pokemon }) => {
         borderRadius={'4'}
         _hover={{ cursor: 'pointer', bgColor: 'gray.800' }}
       >
-        <Text>{`${pokemon.name}（${pokemon.jpName}）`}</Text>
+        <Text>{`${pokemon.name}（${pokemon.jpName})`}</Text>
         <Spacer />
         <Button
           bgColor={'purple.600'}
@@ -65,12 +75,26 @@ export const PokemonItem: FC<PropItem> = ({ pokemon }) => {
           borderColor='blackAlpha.700'
           p={2}
         >
-          <Box flex={1} flexDirection='column'>
-            <Text>Detail</Text>
-          </Box>
-          <HStack display={'flex'} justifyContent={'flex-end'} m={2}>
-            <Button onClick={onToggle}>Close</Button>
-          </HStack>
+          {isOpen && (
+            <>
+              <Box flex={1} p={2} flexDirection='column'>
+                <Text>Detail</Text>
+                <Link href={pokemon.url} passHref>
+                  <a>
+                    <Text textDecor={'underline'}> URL:{pokemon.url}</Text>
+                  </a>
+                </Link>
+                <Suspense fallback={<Spinner />}>
+                  <PokemonFeature name={pokemon.name} />
+                </Suspense>
+              </Box>
+              <HStack display={'flex'} justifyContent={'flex-end'} m={2}>
+                <Button colorScheme={'purple'} onClick={onToggle}>
+                  Close
+                </Button>
+              </HStack>
+            </>
+          )}
         </Box>
       </Collapse>
     </Box>
