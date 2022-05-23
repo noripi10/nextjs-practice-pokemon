@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 gql`
-  query PokemonsQuery($first: Int!) {
+  query GetPokemons($first: Int!) {
     pokemons(first: $first) {
       id
       number

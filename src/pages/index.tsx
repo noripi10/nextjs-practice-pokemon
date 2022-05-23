@@ -27,15 +27,20 @@ const Home: NextPage<{ page: string }> = (props) => {
       <Box p={2}>
         <Text fontSize={'lg'}>Pokemon List</Text>
       </Box>
-      <Suspense fallback={'loading...'}>
-        <PokemoList page={pageNum} />
-      </Suspense>
+      <Box pb={16}>
+        <Suspense fallback={'loading...'}>
+          <PokemoList page={pageNum} />
+        </Suspense>
+        {/* <Box p={2} bgColor='blue.300'>
+          <Text />
+        </Box> */}
+      </Box>
       <HStack
         p={2}
-        position={'fixed'}
+        position={'sticky'}
         bottom={0}
         bgColor={'darkviolet'}
-        width={'100%'}
+        // width={'100%'}
         bgGradient={'linear(to-r, #f00,  #cb4444)'}
       >
         <Button onClick={onPrevios} bgColor={'blackAlpha.800'} isDisabled={pageNum === 1}>

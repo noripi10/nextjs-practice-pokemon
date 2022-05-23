@@ -15,13 +15,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import {
-  PokemonsQueryQuery,
-  QueryPokemonsArgs,
-  PokemonsQueryDocument,
-  PokemonsQueryQueryVariables,
-  Pokemon,
-} from '../generated/graphql';
+import { Pokemon, useGetPokemonsQuery } from '../generated/graphql';
 import pokemonNames from '../pokemonNames.json';
 import { Suspense } from 'react';
 
@@ -36,29 +30,27 @@ type Props = {
 
 const GraphqlPokemon: NextPage<Props> = (props) => {
   // CSR
-  // const { data, loading, error } = useQuery<PokemonsQueryQuery, QueryPokemonsArgs>(PokemonsQueryDocument, {
-  //   variables: { first: 151 },
-  // });
+  const { data, loading, error } = useGetPokemonsQuery({ variables: { first: 151 } });
 
-  // if (loading) {
-  //   return (
-  //     <Box display={'flex'} flex={1} minH={'100vh'} justifyContent='center' alignItems={'center'}>
-  //       <Center flexDirection={'column'}>
-  //         <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='red.500' size='xl' />
-  //         <Text>loading...</Text>
-  //       </Center>
-  //     </Box>
-  //   );
-  // }
-  // if (error) {
-  //   return <Text color={'red.800'}>{error.message}</Text>;
-  // }
+  if (loading) {
+    return (
+      <Box display={'flex'} flex={1} minH={'100vh'} justifyContent='center' alignItems={'center'}>
+        <Center flexDirection={'column'}>
+          <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='red.500' size='xl' />
+          <Text>loading...</Text>
+        </Center>
+      </Box>
+    );
+  }
+  if (error) {
+    return <Text color={'red.800'}>{error.message}</Text>;
+  }
 
-  // const list = data?.pokemons?.map((e) => ({
-  //   ...e,
-  //   jpName: pokemonNames.find((e2) => e2.en === e?.name)?.ja,
-  //   evolutions: e?.evolutions?.map((e3) => ({ ...e3, jpName: pokemonNames.find((e4) => e4.en === e3?.name)?.ja })),
-  // }));
+  const list = data?.pokemons?.map((e) => ({
+    ...e,
+    jpName: pokemonNames.find((e2) => e2.en === e?.name)?.ja,
+    evolutions: e?.evolutions?.map((e3) => ({ ...e3, jpName: pokemonNames.find((e4) => e4.en === e3?.name)?.ja })),
+  }));
 
   return (
     <>
@@ -76,17 +68,17 @@ const GraphqlPokemon: NextPage<Props> = (props) => {
       </Box>
       <Box>
         <Suspense
-          fallback={() => (
+          fallback={
             <Box display={'flex'} flex={1} minH={'100vh'} justifyContent='center' alignItems={'center'}>
               <Center flexDirection={'column'}>
                 <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='red.500' size='xl' />
                 <Text>loading...</Text>
               </Center>
             </Box>
-          )}
+          }
         >
           <List display='flex' flexWrap='wrap' justifyContent={'center'}>
-            {props.pokemons?.map((e) => (
+            {list?.map((e) => (
               <ListItem key={e?.id}>
                 <Flex
                   display={'flex'}
@@ -135,24 +127,24 @@ const GraphqlPokemon: NextPage<Props> = (props) => {
 };
 
 // SSR
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { data } = await client.query<PokemonsQueryQuery, PokemonsQueryQueryVariables>({
-    query: PokemonsQueryDocument,
-    variables: { first: 151 },
-  });
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const { data } = await client.query<PokemonsQueryQuery, PokemonsQueryQueryVariables>({
+//     query: PokemonsQueryDocument,
+//     variables: { first: 151 },
+//   });
 
-  const list = data?.pokemons?.map((e) => ({
-    ...e,
-    jpName: pokemonNames.find((e2) => e2.en === e?.name)?.ja ?? null,
-    evolutions:
-      e?.evolutions?.map((e3) => ({ ...e3, jpName: pokemonNames.find((e4) => e4.en === e3?.name)?.ja })) ?? null,
-  }));
+//   const list = data?.pokemons?.map((e) => ({
+//     ...e,
+//     jpName: pokemonNames.find((e2) => e2.en === e?.name)?.ja ?? null,
+//     evolutions:
+//       e?.evolutions?.map((e3) => ({ ...e3, jpName: pokemonNames.find((e4) => e4.en === e3?.name)?.ja })) ?? null,
+//   }));
 
-  return {
-    props: {
-      pokemons: list,
-    },
-  };
-};
+//   return {
+//     props: {
+//       pokemons: list,
+//     },
+//   };
+// };
 
 export default GraphqlPokemon;

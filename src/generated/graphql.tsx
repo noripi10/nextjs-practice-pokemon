@@ -109,16 +109,16 @@ export type QueryPokemonsArgs = {
   first: Scalars['Int'];
 };
 
-export type PokemonsQueryQueryVariables = Exact<{
+export type GetPokemonsQueryVariables = Exact<{
   first: Scalars['Int'];
 }>;
 
 
-export type PokemonsQueryQuery = { __typename?: 'Query', pokemons?: Array<{ __typename?: 'Pokemon', id: string, number?: string | null, name?: string | null, classification?: string | null, types?: Array<string | null> | null, resistant?: Array<string | null> | null, fleeRate?: number | null, maxCP?: number | null, maxHP?: number | null, image?: string | null, weight?: { __typename?: 'PokemonDimension', minimum?: string | null, maximum?: string | null } | null, height?: { __typename?: 'PokemonDimension', minimum?: string | null, maximum?: string | null } | null, attacks?: { __typename?: 'PokemonAttack', fast?: Array<{ __typename?: 'Attack', name?: string | null } | null> | null, special?: Array<{ __typename?: 'Attack', name?: string | null } | null> | null } | null, evolutions?: Array<{ __typename?: 'Pokemon', id: string, number?: string | null, name?: string | null, image?: string | null } | null> | null } | null> | null };
+export type GetPokemonsQuery = { __typename?: 'Query', pokemons?: Array<{ __typename?: 'Pokemon', id: string, number?: string | null, name?: string | null, classification?: string | null, types?: Array<string | null> | null, resistant?: Array<string | null> | null, fleeRate?: number | null, maxCP?: number | null, maxHP?: number | null, image?: string | null, weight?: { __typename?: 'PokemonDimension', minimum?: string | null, maximum?: string | null } | null, height?: { __typename?: 'PokemonDimension', minimum?: string | null, maximum?: string | null } | null, attacks?: { __typename?: 'PokemonAttack', fast?: Array<{ __typename?: 'Attack', name?: string | null } | null> | null, special?: Array<{ __typename?: 'Attack', name?: string | null } | null> | null } | null, evolutions?: Array<{ __typename?: 'Pokemon', id: string, number?: string | null, name?: string | null, image?: string | null } | null> | null } | null> | null };
 
 
-export const PokemonsQueryDocument = gql`
-    query PokemonsQuery($first: Int!) {
+export const GetPokemonsDocument = gql`
+    query GetPokemons($first: Int!) {
   pokemons(first: $first) {
     id
     number
@@ -157,32 +157,32 @@ export const PokemonsQueryDocument = gql`
     `;
 
 /**
- * __usePokemonsQueryQuery__
+ * __useGetPokemonsQuery__
  *
- * To run a query within a React component, call `usePokemonsQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `usePokemonsQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetPokemonsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPokemonsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = usePokemonsQueryQuery({
+ * const { data, loading, error } = useGetPokemonsQuery({
  *   variables: {
  *      first: // value for 'first'
  *   },
  * });
  */
-export function usePokemonsQueryQuery(baseOptions: Apollo.QueryHookOptions<PokemonsQueryQuery, PokemonsQueryQueryVariables>) {
+export function useGetPokemonsQuery(baseOptions: Apollo.QueryHookOptions<GetPokemonsQuery, GetPokemonsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PokemonsQueryQuery, PokemonsQueryQueryVariables>(PokemonsQueryDocument, options);
+        return Apollo.useQuery<GetPokemonsQuery, GetPokemonsQueryVariables>(GetPokemonsDocument, options);
       }
-export function usePokemonsQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PokemonsQueryQuery, PokemonsQueryQueryVariables>) {
+export function useGetPokemonsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPokemonsQuery, GetPokemonsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PokemonsQueryQuery, PokemonsQueryQueryVariables>(PokemonsQueryDocument, options);
+          return Apollo.useLazyQuery<GetPokemonsQuery, GetPokemonsQueryVariables>(GetPokemonsDocument, options);
         }
-export type PokemonsQueryQueryHookResult = ReturnType<typeof usePokemonsQueryQuery>;
-export type PokemonsQueryLazyQueryHookResult = ReturnType<typeof usePokemonsQueryLazyQuery>;
-export type PokemonsQueryQueryResult = Apollo.QueryResult<PokemonsQueryQuery, PokemonsQueryQueryVariables>;
+export type GetPokemonsQueryHookResult = ReturnType<typeof useGetPokemonsQuery>;
+export type GetPokemonsLazyQueryHookResult = ReturnType<typeof useGetPokemonsLazyQuery>;
+export type GetPokemonsQueryResult = Apollo.QueryResult<GetPokemonsQuery, GetPokemonsQueryVariables>;
 import { IntrospectionQuery } from 'graphql';
 export default {
   "__schema": {
